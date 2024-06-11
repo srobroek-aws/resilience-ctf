@@ -1,0 +1,42 @@
+{
+  "description": "Experiment_02",
+  "targets": {
+    "Subnets-Target-1": {
+      "resourceType": "aws:ec2:subnet",
+      "resourceTags": {
+        "Name": "Services/Microservices/PrivateSubnet2"
+      },
+      "selectionMode": "ALL",
+      "parameters": {}
+    }
+  },
+  "actions": {
+    "Experiment_02": {
+      "actionId": "aws:network:disrupt-connectivity",
+      "parameters": {
+        "duration": "PT1H",
+        "scope": "dynamodb"
+      },
+      "targets": {
+        "Subnets": "Subnets-Target-1"
+      }
+    }
+  },
+  "stopConditions": [
+    {
+      "source": "none"
+    }
+  ],
+  "roleArn": "arn:aws:iam::674515761937:role/network-fis-role",
+  "tags": {},
+  "logConfiguration": {
+    "cloudWatchLogsConfiguration": {
+      "logGroupArn": "arn:aws:logs:us-east-2:674515761937:log-group:FISExperiments:*"
+    },
+    "logSchemaVersion": 2
+  },
+  "experimentOptions": {
+    "accountTargeting": "single-account",
+    "emptyTargetResolutionMode": "fail"
+  }
+}

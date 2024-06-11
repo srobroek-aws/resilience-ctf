@@ -1,0 +1,44 @@
+{
+  "description": "Experiment_01",
+  "targets": {
+    "Pods-Target-1": {
+      "resourceType": "aws:eks:pod",
+      "selectionMode": "ALL",
+      "parameters": {
+        "clusterIdentifier": "arn:aws:eks:us-east-2:674515761937:cluster/PetSite",
+        "namespace": "default",
+        "selectorType": "labelSelector",
+        "selectorValue": "app=petsite"
+      }
+    }
+  },
+  "actions": {
+    "Experiment_01": {
+      "actionId": "aws:eks:pod-cpu-stress",
+      "parameters": {
+        "duration": "PT1H",
+        "kubernetesServiceAccount": "eks-fis-role"
+      },
+      "targets": {
+        "Pods": "Pods-Target-1"
+      }
+    }
+  },
+  "stopConditions": [
+    {
+      "source": "none"
+    }
+  ],
+  "roleArn": "arn:aws:iam::674515761937:role/eks-fis-role",
+  "tags": {},
+  "logConfiguration": {
+    "cloudWatchLogsConfiguration": {
+      "logGroupArn": "arn:aws:logs:us-east-2:674515761937:log-group:FISExperiments:*"
+    },
+    "logSchemaVersion": 2
+  },
+  "experimentOptions": {
+    "accountTargeting": "single-account",
+    "emptyTargetResolutionMode": "fail"
+  }
+}
