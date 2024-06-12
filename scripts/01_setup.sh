@@ -6,8 +6,6 @@ echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
 aws configure set default.region ${AWS_REGION}
 aws configure get default.region
 
-aws iam create-policy --policy-name deny-fis --policy-document file://../iam/deny-fis-policy.json
-aws iam attach-role-policy --role-name WSParticipantRole --policy-arn arn:aws:iam::$ACCOUNT_ID:policy/deny-fis
 
 
 export MYSITE=$(aws ssm get-parameter --name '/petstore/petsiteurl'  | jq -r .Parameter.Value | tr '[:upper:]' '[:lower:]' | cut -f 3 -d '/')
