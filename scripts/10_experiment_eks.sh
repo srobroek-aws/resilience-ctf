@@ -23,11 +23,9 @@ eksctl create iamidentitymapping \
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 ## Create experiment 1
-export FIS_EXP_01_ID=$(aws fis create-experiment-template --cli-input-json file://../fis-experiments/eks-cpu-stress/experiment-template.json | jq -r .experimentTemplate.id)
+
+jq --arg id $ACCOUNT_ID 'walk(if type == "string" then gsub("\\d{12}"; $id ) else . end)' ../fis-experiments/10_experiment_eks_template.json > /tmp/template.json
+export FIS_EXP_01_ID=$(aws fis create-experiment-template \
+    --cli-input-json file:///tmp/template.json | jq -r .experimentTemplate.id)
+
 echo "export FIS_EXP_01_ID=${FIS_EXP_01_ID}" | tee -a ~/.bash_profile
-
-
-jq --arg id $ACCOUNT_ID 'walk(if type == "string" then gsub("\\d{12}"; $id ) else . end)' ../fis-experiments/10_experiment_eks.json > /tmp/template.json
-aws fis create-experiment-template \
-    --cli-input-json file:///tmp/template.json
-

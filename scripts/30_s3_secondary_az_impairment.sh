@@ -1,1 +1,1 @@
-cd ~/environment/workshopfiles/fis-workshop/s3-experiment && bash setup-experiments-for-s3.impairment.sh
+bash ~/environment/workshopfiles/fis-workshop/s3-experiment/setup-experiments-for-s3.impairment.sh
